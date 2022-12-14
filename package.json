@@ -23,6 +23,7 @@
     "webpack-dev-server": "^4.11.1"
   },
   "dependencies": {
-    "three": "^0.147.0"
+    "three": "^0.147.0",
+    "three-noise": "^1.1.2"
   }
 }

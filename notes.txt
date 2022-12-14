@@ -1,0 +1,15 @@
+12/10/22
+
+- Use random 2D field to place star locations 
+- OR could create function that could 
+produce the same random seeding of 3d coordinates for stars given coordinates 
+away from center.
+    - Given args coordinates, provide star positions within sphere of args radius around coordinates.
+    Used to render only the stars around camera position as it moves through the animation.
+    - Create random positions for all stars around origin within sphere of given radius. 
+    Use these positions to determine the star positions every unit outside the sphere. Once initial
+    random star positions around origin are created, could just calculate the rest using 
+    an algorithm.
+    - Use perlin noise to create pseudo-random stars within 1m3 cube. Can then place all those stars given 
+    coordinates within the cube within a 1m3 around that origin, assuming the initial cube repeats.
+    Just need to keep cubic-coords for n-number of stars within 1x1x1 unit cube.
