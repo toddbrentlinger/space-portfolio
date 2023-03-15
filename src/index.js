@@ -5,6 +5,12 @@ import StarField from './threejs/starfield.js';
 import firstSceneInit from './threejs/first-scene.js';
 import { World } from './threejs/World/World.js';
 
+import { init } from './starfield-simple/starfield-simple.js';
+
+// Canvas Only
+
+init();
+/*
 // Three.js
 
 //threejsTestInit();
@@ -26,3 +32,4 @@ StarField.displayPerlinImage(100);
     const world = new World(container);
     world.render();
 })();
+*/
