@@ -2,28 +2,35 @@ const canvas = document.getElementById('star-trek-starfield');
 const ctx = canvas.getContext("2d");
 
 class Star {
-  constructor(posX, posY, radius) {
+  constructor(posX, posY, radius, speedMultiplier) {
     this.posX = posX;
     this.posY = posY;
     this.radius = radius;
+    this.speedMultiplier = speedMultiplier;
   }
   
   getRatiosBetweenCenterAndEdge() {
-    /* 0 is directly at center
-     * 1 is directly at edge furthest from top-left origin
-     * -1 is directly at edge closest to top-left origin
+    /* minSize of canvas width and height use to make maximum size circle of 
+     * star movement
+     *
+     * 0 is directly at center
+     * 1 is directly at minSize furthest from top-left origin
+     * -1 is directly at minSize closest to top-left origin
     */
+    const centerX = canvas.width / 2;
+    const centerY = canvas.height / 2;
     const minSize = Math.min(canvas.width, canvas.height);
+
     return {
-      x: (0.5 * canvas.width - this.posX) / (0.5 * canvas.width),
-      y: (0.5 * canvas.height - this.posY) / (0.5 * canvas.height)
-    };
+      x: (centerX - this.posX) / minSize,
+      y: (centerY - this.posY) / minSize,
+    }
   }
   
   shiftPositionBySpeed(speed = 1) {
     const ratiosBetweenCenterAndEdge = this.getRatiosBetweenCenterAndEdge();
-    this.posX -= speed * ratiosBetweenCenterAndEdge.x;
-    this.posY -= speed * ratiosBetweenCenterAndEdge.y;
+    this.posX -= speed * ratiosBetweenCenterAndEdge.x * this.speedMultiplier;
+    this.posY -= speed * ratiosBetweenCenterAndEdge.y * this.speedMultiplier;
     
     // If current position is outside bounds, set to new random position
     if ((this.posX < 0 || this.posX > canvas.width) || (this.posY < 0 || this.posY > canvas.height)) {
@@ -40,12 +47,10 @@ class Starfield {
   }
   
   init() {
-    this.render();
-    
     setInterval(() => {
       this.render();
       this.stars.forEach((star) => {
-        star.shiftPositionBySpeed(1);
+        star.shiftPositionBySpeed(10);
       });
     }, 50);
   }
@@ -66,25 +71,28 @@ class Starfield {
     });
   }
   
-  createRandomStars(n = 10) {
+  createRandomStars(n = 100) {
     // Max Width: canvas.width
     // Max Height: canvas.height
     
-    const radiusMin = 1; // px
-    const radiusMax = 3; // px
+    const radiusMin = 0.5; // px
+    const radiusMax = 2; // px
+
+    // Higher speed multiplier to represent closer stars that would move 
+    // faster across the screen than further stars
+    const speedMultiplierMin = 1;
+    const speedMultiplierMax = 5;
     
     // Clear stars array
     this.stars = [];
     
     for (let i = 0; i < n; i++) {
-      // Random X
-      // Random Y
-      // Random Radius
       this.stars.push(
         new Star(
           Starfield.randNumBetweenTwoNumbersInclusive(0, canvas.width),
           Starfield.randNumBetweenTwoNumbersInclusive(0, canvas.height),
-          Starfield.randNumBetweenTwoNumbersInclusive(radiusMin, radiusMax)
+          Starfield.randNumBetweenTwoNumbersInclusive(radiusMin, radiusMax),
+          Starfield.randNumBetweenTwoNumbersInclusive(speedMultiplierMin, speedMultiplierMax)
         )
       );
     }
@@ -96,9 +104,11 @@ class Starfield {
 }
 
 export function init() {
-    const minSize = Math.min(window.innerWidth, window.innerHeight);
-    canvas.width = minSize; //document.body.clientWidth;
-    canvas.height = minSize; //document.body.clientHeight;
+    // const minSize = Math.min(window.innerWidth, window.innerHeight);
+    // canvas.width = minSize;
+    // canvas.height = minSize;
+    canvas.width = window.innerWidth; //document.body.clientWidth;
+    canvas.height = window.innerHeight; //document.body.clientHeight;
 
     const starfield = new Starfield();
     starfield.init();
