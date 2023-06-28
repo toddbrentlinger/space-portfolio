@@ -114,4 +114,4 @@ export function init() {
     starfield.init();
 }
 
-init();
+//init();

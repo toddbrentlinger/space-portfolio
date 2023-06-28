@@ -1,23 +1,23 @@
 import './styles/meyerReset.scss';
 import './styles/styles.scss';
-import threejsTestInit from './threejs/threejs-test.js';
-import StarField from './threejs/starfield.js';
-import firstSceneInit from './threejs/first-scene.js';
+// import threejsTestInit from './threejs/threejs-test.js';
+// import StarField from './threejs/starfield.js';
+// import firstSceneInit from './threejs/first-scene.js';
 import { World } from './threejs/World/World.js';
 
-import { init } from './starfield-simple/starfield-simple.js';
+// import { init } from './starfield-simple/starfield-simple.js';
 
 // Canvas Only
 
-init();
-/*
+//init();
+
 // Three.js
 
 //threejsTestInit();
 
 //window.starfield = StarField.create();
-window.StarField = StarField;
-StarField.displayPerlinImage(100);
+//window.StarField = StarField;
+//StarField.displayPerlinImage(100);
 
 //firstSceneInit();
 
@@ -29,7 +29,9 @@ StarField.displayPerlinImage(100);
         document.body.append(container);
     }
 
+    // Create new world
     const world = new World(container);
-    world.render();
+
+    // Start animation loop
+    world.start();
 })();
-*/
