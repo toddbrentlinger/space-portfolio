@@ -17,6 +17,9 @@ Web Development: the final frontier. This is the portfolio of the developer Todd
 His lifelong mission: to explore strange new frameworks; to seek out new employment and new projects;
 to boldly go where no developer has gone before!
 
+Patrick Stewart AI Text To Speech:
+https://fakeyou.com/
+
 12/10/22
 
 - Use random 2D field to place star locations 

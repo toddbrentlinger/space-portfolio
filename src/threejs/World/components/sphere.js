@@ -22,16 +22,16 @@ function createMaterial() {
     return material;
 }
 
-function createSphere() {
+function createSphere(radius = 1, degreesPerSecond = 30) {
     // Create geometry
-    const geometry = new SphereGeometry();
+    const geometry = new SphereGeometry(radius, 64, 32);
 
     // Create mesh containing geometry and material
     const sphere = new Mesh(geometry, createMaterial());
 
-    sphere.position.set(-2, 0, 0);
+    sphere.position.set(-4.5, 0, 0);
 
-    const radiansPerSecond = MathUtils.degToRad(30);
+    const radiansPerSecond = MathUtils.degToRad(degreesPerSecond);
 
     sphere.tick = (delta) => {
         // Increase sphere's rotation every frame

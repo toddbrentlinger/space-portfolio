@@ -8,28 +8,26 @@ import {
 } from 'three';
 import UVTestImage from '../../../../assets/textures/uv_test_bw.png';
 import Albedo from '../../../../assets/textures/space-crate1-ue/space-crate1-albedo.png';
-import AO from '../../../../assets/textures/space-crate1-ue/space-crate1-ao.png';
 import Height from '../../../../assets/textures/space-crate1-ue/space-crate1-height.png';
-import Metallic from '../../../../assets/textures/space-crate1-ue/space-crate1-metallic.png';
 import Normal from '../../../../assets/textures/space-crate1-ue/space-crate1-normal-dx.png';
-import Roughness from '../../../../assets/textures/space-crate1-ue/space-crate1-roughness.png';
-import AORoughnessMetal from '../../../../assets/textures/space-crate1-ue/space-crate1-ao-roughness-metal.png';
+import AORoughnessMetallic from '../../../../assets/textures/space-crate1-ue/space-crate1-ao-roughness-metallic.png';
 
 function createMaterial() {
     const textureLoader = new TextureLoader();
     
     // Create physically correct material
+    const aoRoughnessMetallicTexture = textureLoader.load(AORoughnessMetallic);
     const material = new MeshStandardMaterial({
-        aoMap: textureLoader.load(AORoughnessMetal),
+        aoMap: aoRoughnessMetallicTexture,
         aoMapIntensity: 1,
         //displacementMap: textureLoader.load(Height),
         map: textureLoader.load(Albedo),
         metalness: 1,
-        metalnessMap: textureLoader.load(AORoughnessMetal),
+        metalnessMap: aoRoughnessMetallicTexture,
         normalMap: textureLoader.load(Normal),
         normalScale: new Vector2(1, -1),
         roughness: 1,
-        roughnessMap: textureLoader.load(AORoughnessMetal),
+        roughnessMap: aoRoughnessMetallicTexture,
     });
 
     return material;
@@ -42,7 +40,7 @@ function createCube() {
     // Create mesh containing geometry and material
     const cube = new Mesh(geometry, createMaterial());
 
-    cube.position.set(2, 0, 0);
+    cube.position.set(4.5, 0, 0);
 
     cube.rotation.set(-0.5, -0.1, 0.8);
 
